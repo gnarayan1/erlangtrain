@@ -7,7 +7,7 @@
 %% ====================================================================
 %% API functions
 %% ====================================================================
--export([beach/1]).
+-export([beach/1, rocks/1]).
 
 
 beach(Temperature) ->
@@ -23,6 +23,13 @@ beach(Temperature) ->
 	end.
 
 
+rocks(Dev) ->
+	Lang = 	 if Dev == "chris" -> "Java";
+				Dev == "joe" -> "JS";
+				Dev == "dong" -> "C++";
+				true -> "Everything"
+			 end,
+	io:format(Lang++" Rocks!~n").
 
 
 %% ====================================================================

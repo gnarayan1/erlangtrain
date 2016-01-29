@@ -4,12 +4,11 @@
 
 -module(pingpong).
 
--export([start/0, ping/2, pong/0]).
+-export([start/0, start/1, ping/2, pong/0]).
 
 ping(0, Pong_PID) ->
     Pong_PID ! finished,
     io:format("ping finished~n", []);
-
 ping(N, Pong_PID) ->
     Pong_PID ! {ping, self()},
     receive
@@ -28,6 +27,9 @@ pong() ->
             pong()
     end.
 
-start() ->
+start(Num) ->
     Pong_PID = spawn(pingpong, pong, []),
-    spawn(pingpong, ping, [3, Pong_PID]).
+    spawn(pingpong, ping, [Num, Pong_PID]).
+
+start() ->
+	start(5).
